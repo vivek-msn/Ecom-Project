@@ -46,9 +46,11 @@ $order_id=get_safe_value($con,$_GET['id']);
                                                 <td class="product-name">Total Price</td>
                                                 <td class="product-name"><?php echo $total_price?></td>
                                             </tr>
-                                        </tbody>
-                                        
+                                        </tbody>                                        
                                     </table>
+                                    <div id="address_details">
+                                        <strong>Address</strong>
+                                    </div>
                                 </div>  
                             </form>
                         </div>
