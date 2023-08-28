@@ -54,7 +54,12 @@ $order_id=get_safe_value($con,$_GET['id']);
                               </table>
                               <div id="address_details">
                                  <strong>Address</strong>
-                                 <?php echo $address?>, <?php echo $city?>, <?php echo $pincode?>
+                                 <?php echo $address?>, <?php echo $city?>, <?php echo $pincode?><br/><br/>
+                                 <strong>Order Status</strong>
+                                 <?php
+                                 $order_status_arr=mysqli_fetch_assoc(mysqli_query($con,"select order_status.name from order_status, `order` where `order` .id='$order_id' and `order`.order_status=order_status.id"));
+                                 echo $order_status_arr['name']
+                                 ?>
                               </div>
                            </div>
                         </div>
