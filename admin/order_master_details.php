@@ -25,13 +25,15 @@ $order_id=get_safe_value($con,$_GET['id']);
                                         </thead>
                                         <tbody>                                            
                                             <?php
-                                            $uid=$_SESSION['USER_ID'];
-                                            $res=mysqli_query($con,"SELECT DISTINCT order_detail.id, order_detail.*, product.name, product.image
+                                            $res=mysqli_query($con,"SELECT DISTINCT order_detail.id, order_detail.*, product.name, product.image,`order`.address,`order`.city,`order`.pincode
                                             FROM order_detail, product, `order`
                                             WHERE order_detail.order_id = '$order_id'
                                             AND order_detail.product_id = product.id");
                                             $total_price=0;
                                             while($row=mysqli_fetch_assoc($res)){
+                                            $address=$row['address'];
+                                            $city=$row['city'];
+                                            $pincode=$row['pincode'];
                                             $total_price=$total_price+($row['qty']*$row['price']);
                                             ?>
                                             
@@ -52,6 +54,7 @@ $order_id=get_safe_value($con,$_GET['id']);
                               </table>
                               <div id="address_details">
                                  <strong>Address</strong>
+                                 <?php echo $address?>, <?php echo $city?>, <?php echo $pincode?>
                               </div>
                            </div>
                         </div>
