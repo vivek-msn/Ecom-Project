@@ -50,6 +50,9 @@ $order_id=get_safe_value($con,$_GET['id']);
                                             </tr>
                                         </tbody>                  
                               </table>
+                              <div id="address_details">
+                                 <strong>Address</strong>
+                              </div>
                            </div>
                         </div>
                      </div>
