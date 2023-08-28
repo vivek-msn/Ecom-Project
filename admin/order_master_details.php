@@ -1,7 +1,10 @@
 <?php
 require('top.inc.php');
-
 $order_id=get_safe_value($con,$_GET['id']);
+if(isset($_POST['update_order_status'])) {
+   echo $update_order_status=$_POST['update_order_status'];
+   
+}
 ?>
 <div class="content pb-0">
             <div class="orders">
@@ -52,7 +55,7 @@ $order_id=get_safe_value($con,$_GET['id']);
                                             </tr>
                                         </tbody>                  
                               </table>
-                              <div id="address_details">
+                                 <div id="address_details">
                                  <strong>Address</strong>
                                  <?php echo $address?>, <?php echo $city?>, <?php echo $pincode?><br/><br/>
                                  <strong>Order Status</strong>
@@ -60,6 +63,24 @@ $order_id=get_safe_value($con,$_GET['id']);
                                  $order_status_arr=mysqli_fetch_assoc(mysqli_query($con,"select order_status.name from order_status, `order` where `order` .id='$order_id' and `order`.order_status=order_status.id"));
                                  echo $order_status_arr['name']
                                  ?>
+                                 <div>
+                                    <form mehtod="post">
+                                       <select class="form-control" name="update_order_status">
+                                       <option>Select Status</option>
+                                       <?php
+                                       $res=mysqli_query($con,"select * from order_status");
+                                       while($row=mysqli_fetch_assoc($res)){
+                                          if($row['id']==$categories_id){
+                                             echo "<option selected value=".$row['id'].">".$row['name']."</option>";
+                                          }else{
+                                          echo "<option value=".$row['id'].">".$row['name']."</option>";
+                                             }
+                                          }
+                                          ?>
+                                       </select>
+                                       <input type="submit" class="form-control"/>
+                                    </form>
+                                 </div>
                               </div>
                            </div>
                         </div>
