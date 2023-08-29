@@ -79,6 +79,8 @@ $totalProduct=$obj->totalProduct();
                             </div>
                             <div class="col-md-3 col-lg-2 col-sm-4 col-xs-4">
                                 <div class="header__right">
+                                    <div class="header__search search search__open">
+                                        <a href="#"><i class="icon-magnifier icons"></i></a>                                    </div>
                                     <div class="header__account">
                                     <?php if(isset($_SESSION['USER_LOGIN'])) {
                                         echo '<a href="logout.php">Logout</a><a href="my_order.php">My Order</a>';
