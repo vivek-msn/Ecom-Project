@@ -1,8 +1,25 @@
 <?php 
 require('top.php');
 $cat_id=mysqli_real_escape_string($con,$_GET['id']);
+
+$sort_order='';
+if(isset($_GET['sort'])) {
+    $sort=mysqli_real_escape_string($con,$_GET['sort']);
+    if($sort=="price_high") {
+        $sort_order=" order by product.price desc ";
+    }if($sort=="price_low") {
+        $sort_order=" order by product.price asc ";
+    }if($sort=="new") {
+        $sort_order=" order by product.id desc ";
+    }if($sort=="old") {
+        $sort_order=" order by product.id asc ";
+    }
+    
+
+}
+
 if($cat_id>0) {
-    $get_product=get_product($con,'',$cat_id);
+    $get_product=get_product($con,'',$cat_id,'','',$sort_order);
 }else{
     ?>
     <script>
@@ -43,8 +60,8 @@ if($cat_id>0) {
                                 <div class="htc__select__option">
                                     <select class="ht__select" onchange="sort_product_drop('<?php echo $cat_id?>','<?php echo SITE_PATH?>')" id="sort_product_id">
                                         <option value="">Default sorting</option>
-                                        <option value="price_high">Sort by price low to high</option>
-                                        <option value="price_low">Sort by high to low</option>
+                                        <option value="price_low">Sort by price low to high</option>
+                                        <option value="price_high">Sort by high to low</option>
                                         <option value="new">Sort by new first</option>
                                         <option value="old">Sort by old first</option>
                                     </select>
