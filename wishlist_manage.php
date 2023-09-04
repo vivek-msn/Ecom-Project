@@ -12,10 +12,13 @@ if(isset($_SESSION['USER_LOGIN'])) {
         echo "Already added";
     }else{
        
-        $added_on=date('Y-m-d h:i:s');
-        mysqli_query($con,"insert into wishlist(user_id,product_id,added_on) values('$uid','$pid','$added_on')");
+       // $added_on=date('Y-m-d h:i:s');
+        //mysqli_query($con,"insert into wishlist(user_id,product_id,added_on) values('$uid','$pid','$added_on')");
+        wishlist_add($con,$uid,$pid);
     }
+    echo $total_record=mysqli_num_rows(mysqli_query($con,"select * from wishlist where user_id='$uid'"));
 }else{
+    $_SESSION['WISHLIST_ID']=$pid;
     echo "not_login";
 }
 ?>

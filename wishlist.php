@@ -9,10 +9,7 @@ if(!isset($_SESSION['USER_LOGIN'])) {
 }
 $uid=$_SESSION['USER_ID'];
 
-if(isset($_GET['id'])) {
-    $wid=$_GET['id'];
-    mysqli_query($con,"delete from wishlist where id='$wid' and user_id='$uid'");
-}
+
 $res=mysqli_query($con,"select product.name,product.image,product.price,product.mrp,wishlist.id from product,wishlist where wishlist.product_id=product.id and wishlist.user_id='$uid'");
 ?>
 
@@ -62,7 +59,7 @@ $res=mysqli_query($con,"select product.name,product.image,product.price,product.
                                                     <li><?php echo $row['price']?></li>
                                                 </ul>
                                             </td>
-                                            <td class="product-remove"><a href="wishlist.php?id=<?php echo $row['id']?>"><i class="icon-trash icons"></i></a></td>
+                                            <td class="product-remove"><a href="wishlist.php?wishlist_id=<?php echo $row['id']?>"><i class="icon-trash icons"></i></a></td>
                                         </tr>
                                         <?php }?>
                                     </tbody>
