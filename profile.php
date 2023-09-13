@@ -61,13 +61,57 @@ if(!isset($_SESSION['USER_LOGIN'])) {
                 
 				</div>
 				
+				<div class="row">
+					<div class="col-md-6">
+						<div class="contact-form-wrap mt--60">
+							<div class="col-xs-12">
+								<div class="contact-title">
+									<h2 class="title__line--6">Change Password</h2>
+								</div>
+							</div>
+							<div class="col-xs-12">
+								<form method="post" id="frmPassword">
+									<div class="single-contact-form">
+									<label class="password_label">Current Password</label>
+										<div class="contact-box name">											
+											<input type="password" name="current_password" id="current_password"  style="width:100%">
+										</div>
+										<span class="field_error" id="current_password_error"></span>
+									</div>
+									<div class="single-contact-form">
+									<label class="password_label">New Password</label>
+										<div class="contact-box name">									
+											<input type="password" name="new_password" id="new_password"  style="width:100%">
+										</div>
+										<span class="field_error" id="new_password_error"></span>
+									</div>
+									<div class="single-contact-form">
+									<label class="password_label">Confirm New Password</label>
+										<div class="contact-box name">										
+											<input type="password" name="confirm_new_password" id="confirm_new_password"  style="width:100%">
+										</div>
+										<span class="field_error" id="confirm_new_password_error"></span>
+									</div>
+									<div class="contact-btn">
+										<button type="button" class="fv-btn" onclick="update_password()" id="btn_update_password">Update</button>
+										
+									</div>
+								</form>
+								<div class="form-output login_msg">
+									<p class="form-messege field_error"></p>
+								</div>
+							</div>
+						</div> 
+                
+				</div>
 
 					
             </div>
         </section>
 		<script>
+			
 		function update_profile(){
-			jQuery('#name_error').html('');
+			jQuery('.field_error').html('');
 			var name=jQuery('#name').val();
 			if(name==''){
 				jQuery('#name_error').html('Please enter your name');
@@ -86,5 +130,49 @@ if(!isset($_SESSION['USER_LOGIN'])) {
 				})
 			}
 		}
+
+
+
+		function update_password(){
+			jQuery('.field_error').html('');
+			var current_password=jQuery('#current_password').val();
+			var new_password=jQuery('#new_password').val();
+			var confirm_new_password=jQuery('#confirm_new_password').val();
+			var is_error='';
+			if(current_password==''){
+				jQuery('#current_password_error').html('Please enter password');
+				is_error='yes';
+			}
+			if(new_password==''){
+				jQuery('#new_password_error').html('Please enter password');
+				is_error='yes';
+			}
+			if(confirm_new_password==''){
+				jQuery('#confirm_new_password_error').html('Please enter password');
+				is_error='yes';
+			}
+
+			if(new_password!='' && confirm_new_password!='' && new_password!=confirm_new_password){
+				jQuery('#confirm_new_password_error').html('Please enter same password');
+				is_error='yes';
+			}
+
+			if(is_error==''){
+				jQuery('#btn_update_password').html('Please wait...');
+				jQuery('#btn_update_password').attr('disabled',true);
+				jQuery.ajax({
+					url:'update_password.php',
+					type:'post',
+					data:'current_password='+current_password+'&new_password='+new_password,
+					success:function(result){
+						jQuery('#current_password_error').html(result);
+						jQuery('#btn_update_password').html('Update');
+						jQuery('#btn_update_password').attr('disabled',false);
+						jQuery('#frmPassword')[0].reset();
+			}
+		})
+	}
+
+}
 		</script>
 <?php require('footer.php')?>        
