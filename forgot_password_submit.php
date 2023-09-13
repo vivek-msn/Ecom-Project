@@ -18,7 +18,7 @@ if($check_user>0){
 	$mail->SMTPSecure="tls";
 	$mail->SMTPAuth=true;
 	$mail->Username="vivek14saini.vs@gmail.com";
-	$mail->Password="lenovo@1234";
+	$mail->Password="Lenovo@1234";
 	$mail->SetFrom("vivek14saini.vs@gmail.com");
 	$mail->addAddress($email);
 	$mail->IsHTML(true);
